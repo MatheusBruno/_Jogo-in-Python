@@ -43,6 +43,14 @@ def desenhaCobra(listaCobra):
         for xey in listaCobra:
             pygame.draw.rect(tela, (255,0,255), (xey[0],xey[1], tamanho,tamanho2))
 
+def morreuCobra():
+    global x_cobra, y_cobra, pontos, listaCobra, comprimentocobra
+    x_cobra = largura/2
+    y_cobra = altura/2
+    pontos = 0
+    listaCobra = []
+    comprimentocobra = 1
+
 while True:
     relogio.tick(20)
     tela.fill((255,255,255))
@@ -122,10 +130,14 @@ while True:
         # tamanho = tamanho + 50
 
     listaCabeca = []
+
     listaCabeca.append(x_cobra)
     listaCabeca.append(y_cobra)
     listaCobra.append(listaCabeca)
     desenhaCobra(listaCobra)
+
+    if listaCobra.count(listaCabeca) > 1:
+        morreuCobra()
 
     # if y == altura:
     #     y = 0
