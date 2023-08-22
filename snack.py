@@ -13,6 +13,9 @@ tamanho = 20
 tamanho2 = 20
 pontos = 0
 
+mensagemMorte = "Você perdeu! Precione V para reiniciar"
+fonteMorte = pygame.font.SysFont('arial', 40, True, False)
+
 x_apple = randint(0,950)
 y_apple = randint(0, 500)
 
@@ -42,7 +45,7 @@ barulhodecolisao = pygame.mixer.Sound('smw_kick.wav') # todos os barulhos de fun
 fonte = pygame.font.SysFont('arial', 40, True, False)
 
 tela = pygame.display.set_mode((largura, altura))
-pygame.display.set_caption('Jogo')
+pygame.display.set_caption('Snack')
 relogio = pygame.time.Clock()
 
 comprimentocobra = 1
@@ -144,6 +147,9 @@ while True:
 
         morreu = True
         while morreu:
+            tela.fill((0,0,0))
+            dadosMorte = fonteMorte.render(mensagemMorte, True, (255,255,255))
+            txt_rect = dadosMorte.get_rect()
 
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -155,6 +161,10 @@ while True:
                 if event.type == KEYDOWN:
                     if event.key == K_v:
                         reiniciarCobra()
+            
+            txt_rect.center = (largura//2, altura//2)
+            tela.blit(dadosMorte, txt_rect)
+            pygame.display.update()
 
     # if y == altura:
     #     y = 0
