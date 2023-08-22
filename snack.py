@@ -20,6 +20,17 @@ velocidade = 10
 x_controle = velocidade
 y_controle = 0
 
+def reiniciarCobra():
+    global x_cobra, y_cobra, x_apple, y_apple, pontos, comprimentocobra, listaCobra, morreu
+    x_cobra = largura/2
+    y_cobra = altura/2
+    x_apple = randint(0,950)
+    y_apple = randint(0, 500)
+    pontos = 0
+    morreu = False
+    comprimentocobra = 1
+    listaCobra.clear()
+
 pygame.mixer.music.set_volume(0.1) #valores aceitos entre 0 e 1, assim consegue controlar o som da musica
 musicadefundo = pygame.mixer.music.load('teste1.mp3')
 pygame.mixer.music.play(-1) # toca a musica com o parametro -1 a musica fica tocando automaticamente
@@ -36,6 +47,8 @@ relogio = pygame.time.Clock()
 
 comprimentocobra = 1
 listaCobra = []
+
+morreu = False
 
 def desenhaCobra(listaCobra):
     if len(listaCobra) > comprimentocobra:
@@ -126,6 +139,22 @@ while True:
     listaCabeca.append(y_cobra)
     listaCobra.append(listaCabeca)
     desenhaCobra(listaCobra)
+
+    if listaCobra.count(listaCabeca) > 1:
+
+        morreu = True
+        while morreu:
+
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    exit()
+
+                
+                #reconhece a tecla que foi clicada mais nao a se segurar
+                if event.type == KEYDOWN:
+                    if event.key == K_v:
+                        reiniciarCobra()
 
     # if y == altura:
     #     y = 0
